@@ -21,7 +21,7 @@ class ShoppingCartService extends BaseService {
 
     getAllShoppingCarts(): Promise<ShoppingCart[]> {
         return axiosInstance.get<ShoppingCart[]>(`${this.baseUrl}/get`)
-            .then((response: { data: ShoppingCart; }) => response.data)
+            .then(response => response.data)
             .catch((error: any) => {
                 console.error('Error getting ShoppingCart:', error);
                 throw error;
@@ -29,8 +29,8 @@ class ShoppingCartService extends BaseService {
     }
 
     getShoppingCartById(id: string) {
-        return axiosInstance.get<ShoppingCart>(`${this.baseUrl}/getById`, { id })
-            .then((response: { data: ShoppingCart; }) => response.data)
+        return axiosInstance.post<ShoppingCart>(`${this.baseUrl}/getById`, { id })
+            .then(response => response.data)
             .catch((error: any) => {
                 console.error('Error getting ShoppingCart By Id:', error);
                 throw error;
@@ -46,7 +46,7 @@ class ShoppingCartService extends BaseService {
 
     getShoppingCartByName(name: string) {
         return axiosInstance.post<ShoppingCart>(`${this.baseUrl}/getByName`, { name })
-            .then((response: { data: ShoppingCart; }) => response.data)
+            .then(response => response.data)
             .catch((error: any) => {
                 console.error('Error getting ShoppingCart by name:', error);
                 throw error;
@@ -69,9 +69,9 @@ class ShoppingCartService extends BaseService {
                 throw error;
             });
     }
-    getSize(): Promise<number[]> {
+    getSize(): Promise<any> {
         return axiosInstance.get<ShoppingCart[]>(`${this.baseUrl}/getSize`)
-            .then((response: { data: number; }) => response.data)
+            .then(response =>  response.data)
             .catch((error: any) => {
                 console.error('Error getting ShoppingCart:', error);
                 throw error;

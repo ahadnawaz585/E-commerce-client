@@ -6,7 +6,7 @@ import { BaseService } from "@/core/utilities/baseService";
 import { environment } from "@/environment/environment";
 
 class ProductService extends BaseService {
-    private baseUrl = environment.apiUrl + '/Products';
+    private baseUrl = environment.apiUrl + '/product';
 
     getProducts(page: number, pageSize: number): Promise<paginatedData> {
 
@@ -22,7 +22,7 @@ class ProductService extends BaseService {
 
     getAllProducts(): Promise<Product[]> {
         return axiosInstance.get<Product[]>(`${this.baseUrl}/get`)
-            .then((response: { data: Product; }) => response.data)
+            .then(response => response.data)
             .catch((error: any) => {
                 console.error('Error getting Products:', error);
                 throw error;
@@ -30,8 +30,8 @@ class ProductService extends BaseService {
     }
 
     getProductById(id: string) {
-        return axiosInstance.get<Product>(`${this.baseUrl}/getById`, { id })
-            .then((response: { data: Product; }) => response.data)
+        return axiosInstance.post<Product>(`${this.baseUrl}/getById`, { id })
+            .then(response => response.data)
             .catch((error: any) => {
                 console.error('Error getting Product By Id:', error);
                 throw error;
@@ -39,8 +39,8 @@ class ProductService extends BaseService {
     }
 
     getProductByCategory(category: string) {
-        return axiosInstance.get<Product>(`${this.baseUrl}/getByCategory`, { category })
-            .then((response: { data: Product; }) => response.data)
+        return axiosInstance.post<Product>(`${this.baseUrl}/getByCategory`, { category })
+            .then(response => response.data)
             .catch((error: any) => {
                 console.error('Error getting Product By Category:', error);
                 throw error;
@@ -58,7 +58,7 @@ class ProductService extends BaseService {
 
     getProductByName(name: string) {
         return axiosInstance.post<Product>(`${this.baseUrl}/getByName`, { name })
-            .then((response: { data: Product; }) => response.data)
+            .then(response => response.data)
             .catch((error: any) => {
                 console.error('Error getting product by name:', error);
                 throw error;
@@ -81,9 +81,9 @@ class ProductService extends BaseService {
                 throw error;
             });
     }
-    getSize(): Promise<number[]> {
+    getSize(): Promise<any> {
         return axiosInstance.get<Product[]>(`${this.baseUrl}/getSize`)
-            .then((response: { data: number; }) => response.data)
+            .then(response =>response.data)
             .catch((error: any) => {
                 console.error('Error getting Product:', error);
                 throw error;
@@ -97,7 +97,7 @@ class ProductService extends BaseService {
             });
     }
     Productreviews(id: string) {
-        return axiosInstance.get<{ product: Product, reviews: Review[] }[]>(`${this.baseUrl}/Productreviews`, { id })
+        return axiosInstance.post<{ product: Product, reviews: Review[] }[]>(`${this.baseUrl}/Productreviews`, { id })
             .catch((error: any) => {
                 console.error('Error showing product:', error);
                 throw error;

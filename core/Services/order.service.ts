@@ -20,9 +20,9 @@ class OrderService extends BaseService {
             });
     }
 
-    getSize(): Promise<number[]> {
+    getSize(): Promise<any> {
         return axiosInstance.get<Order[]>(`${this.baseUrl}/getSize`)
-            .then((response: { data: number; }) => response.data)
+            .then(response => response.data)
             .catch((error: any) => {
                 console.error('Error getting Order:', error);
                 throw error;
@@ -30,7 +30,7 @@ class OrderService extends BaseService {
     }
     getAllOrders(): Promise<Order[]> {
         return axiosInstance.get<Order[]>(`${this.baseUrl}/get`)
-            .then((response: { data: Order; }) => response.data)
+            .then(response => response.data)
             .catch((error: any) => {
                 console.error('Error getting Order:', error);
                 throw error;
@@ -38,8 +38,8 @@ class OrderService extends BaseService {
     }
 
     getOrderById(id: string) {
-        return axiosInstance.get<Order>(`${this.baseUrl}/getById`, { id })
-            .then((response: { data: Order; }) => response.data)
+        return axiosInstance.post<Order>(`${this.baseUrl}/getById`, { id })
+            .then(response => response.data)
             .catch((error: any) => {
                 console.error('Error getting Order By Id:', error);
                 throw error;
@@ -47,8 +47,8 @@ class OrderService extends BaseService {
     }
 
     getPendingOrder(value: OrderStatus) {
-        return axiosInstance.get<Order>(`${this.baseUrl}/getPending`, { value })
-            .then((response: { data: Order; }) => response.data)
+        return axiosInstance.post<Order>(`${this.baseUrl}/getPending`, { value })
+            .then(response => response.data)
             .catch((error: any) => {
                 console.error('Error getting Order By Id:', error);
                 throw error;
