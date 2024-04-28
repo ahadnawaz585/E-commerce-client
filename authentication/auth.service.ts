@@ -23,7 +23,7 @@ class AuthService {
   async verifyOTP(credentials: User) {
     try {
       const response = await axios.post<any>(
-        `${this.baseUrl}/veriyOTP`,
+        `${this.baseUrl}/verifyOTP`,
         credentials
       );
       if (response.data.token) {

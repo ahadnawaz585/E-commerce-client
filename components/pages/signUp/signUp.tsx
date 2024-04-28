@@ -10,6 +10,7 @@ const SignUp: React.FC = () => {
   const router = useRouter();
   const authService: AuthService = new AuthService();
   const [username, setUsername] = useState('');
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -28,6 +29,7 @@ const SignUp: React.FC = () => {
 
     try {
       await authService.signUp(credentials);
+      setLoading(true);
       setSuccessMessage('Sign-up successful!');
       reset();
       setTimeout(() => {
@@ -35,7 +37,10 @@ const SignUp: React.FC = () => {
       }, 5000); // Clear success message after 5 seconds
       router.push("/login");
     } catch (error) {
-      setError( 'Failed to sign up');
+      setError('Failed to sign up');
+    }
+    finally {
+      setLoading(false);
     }
   };
 
@@ -107,9 +112,11 @@ const SignUp: React.FC = () => {
           <button
             type="submit"
             className="block w-full px-4 py-2 mt-4 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+            disabled={loading} // Disable button when loading
           >
-            Sign Up
+            {loading ? 'Signing Up...' : 'Sign Up'} {/* Change button text based on loading state */}
           </button>
+
         </form>
         <div className="text-sm text-center">
           Already have an account?{' '}

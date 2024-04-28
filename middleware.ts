@@ -46,7 +46,7 @@ export async function middleware(request: NextRequest) {
   }
 
   if (isAuthenticated()) {
-    if (pathname === "/login") {
+    if (pathname === "/login" || pathname ==="/signUp") {
       return redirectToHome();
     }
   }
