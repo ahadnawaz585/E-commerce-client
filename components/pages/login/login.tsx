@@ -2,30 +2,42 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import AuthService from '@/authentication/auth.service';
+import { User } from '@/core/Types/user';
+
 const Login: React.FC = () => {
-  const authService:AuthService = new AuthService(); 
+  const authService: AuthService = new AuthService();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const credentials = {username, email, password, rememberMe ,role:'customer'};
-    console.log(credentials);
+    setLoading(true);
+    const credentials = { username, email, password, rememberMe };
     try {
-      authService.signUp(credentials);
-      console.log("created successfuly");
+      const response = await authService.login(credentials);
+      console.log(response);
+      setSuccessMessage('Login successful!');
+      setError('');
     } catch (error) {
-      console.log("error created successfuly");
+      console.error(error);
+      setSuccessMessage('');
+      setError('Invalid username or password.');
+    } finally {
+      setLoading(false);
     }
-    console.log('Form submitted:', { username, email, password, rememberMe });
   };
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-200">
       <div className="bg-white shadow-md rounded-md px-8 py-6 w-full max-w-md">
         <h1 className="text-3xl mb-4 text-center font-bold">Sign in</h1>
+        {error && <div className="text-red-500 mb-4">{error}</div>}
+        {successMessage && <div className="text-green-500 mb-4">{successMessage}</div>}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <input
@@ -71,9 +83,12 @@ const Login: React.FC = () => {
           </p>
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white rounded-md py-2 mt-4 hover:bg-blue-600 transition duration-300"
+            className={`w-full bg-blue-500 text-white rounded-md py-2 mt-4 hover:bg-blue-600 transition duration-300 ${
+              loading ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
+            disabled={loading}
           >
-            Sign In
+            {loading ? 'Signing In...' : 'Sign In'}
           </button>
         </form>
       </div>

@@ -2,7 +2,6 @@
 "use client"
 import React, { useState } from 'react';
 import Link from 'next/link';
-
 import { useRouter } from 'next/navigation';
 import { User } from '@/core/Types/user';
 import AuthService from '@/authentication/auth.service';
@@ -32,16 +31,16 @@ const SignUp: React.FC = () => {
       setSuccessMessage('Sign-up successful!');
       reset();
       setTimeout(() => {
-        router.push("/")
-      }, 4000);
-      // Reset error message
+        setSuccessMessage('');
+      }, 5000); // Clear success message after 5 seconds
+      router.push("/login");
     } catch (error) {
-      setError('Failed to sign up'); // Set error message
+      setError( 'Failed to sign up');
     }
   };
+
   const reset = () => {
     setError('');
-    // Reset form fields after successful sign-up
     setUsername('');
     setEmail('');
     setPassword('');
