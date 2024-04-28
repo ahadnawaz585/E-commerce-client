@@ -56,7 +56,7 @@ class ProductService extends BaseService {
     }
 
     getProductByName(name: string) {
-        return axiosInstance.post<Product>(`${this.baseUrl}/getByName`, { "Name": name })
+        return axiosInstance.post<Product>(`${this.baseUrl}/getByName`, { name })
             .then((response: { data: Product; }) => response.data)
             .catch((error: any) => {
                 console.error('Error getting product by name:', error);
@@ -80,11 +80,18 @@ class ProductService extends BaseService {
                 throw error;
             });
     }
-
+    getSize(): Promise<number[]> {
+        return axiosInstance.get<Product[]>(`${this.baseUrl}/getSize`)
+            .then((response: { data: number; }) => response.data)
+            .catch((error: any) => {
+                console.error('Error getting Product:', error);
+                throw error;
+            });
+    }
     restoreProduct(id: string) {
         return axiosInstance.post<void>(`${this.baseUrl}/restore`, { id })
             .catch((error: any) => {
-                console.error('Error restoring chart of account:', error);
+                console.error('Error restoring product:', error);
                 throw error;
             });
     }
