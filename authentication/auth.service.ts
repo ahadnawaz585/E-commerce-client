@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import { environment } from "../environment/environment";
-import { User } from "next-auth";
+import { User } from "@/core/Types/user";
 
 class AuthService {
   private cookieKey = "auth_token";
@@ -17,6 +17,19 @@ class AuthService {
         this.setToken(response.data.token);
       }
       return response;
+    } catch (error) {
+      console.error("Login error:", error); // Add error handling
+      throw error;
+    }
+  }
+
+  async signUp(credentials: User): Promise<void> {
+    try {
+      await axios.post<any>(
+        `${this.baseUrl}/signUp`,
+        credentials
+      );
+      return;
     } catch (error) {
       console.error("Login error:", error); // Add error handling
       throw error;

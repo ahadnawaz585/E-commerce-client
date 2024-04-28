@@ -3,17 +3,50 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 
+import { useRouter } from 'next/navigation';
+import { User } from '@/core/Types/user';
+import AuthService from '@/authentication/auth.service';
+
 const SignUp: React.FC = () => {
+  const router = useRouter();
+  const authService: AuthService = new AuthService();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Handle sign-up form submission here
-    console.log('Form submitted:', { username, email, password, confirmPassword });
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
+    const credentials = { username, email, password, role: 'customer' };
+
+    try {
+      await authService.signUp(credentials);
+      setSuccessMessage('Sign-up successful!');
+      reset();
+      setTimeout(() => {
+        router.push("/")
+      }, 4000);
+      // Reset error message
+    } catch (error) {
+      setError('Failed to sign up'); // Set error message
+    }
   };
+  const reset = () => {
+    setError('');
+    // Reset form fields after successful sign-up
+    setUsername('');
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-12 bg-gray-50">
@@ -67,6 +100,10 @@ const SignUp: React.FC = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
+          </div>
+          <div>
+            {error && <p className="text-red-500">{error}</p>} {/* Display error message */}
+            {successMessage && <p className="text-green-500">{successMessage}</p>} {/* Display success message */}
           </div>
           <button
             type="submit"

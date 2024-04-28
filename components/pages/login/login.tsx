@@ -1,7 +1,9 @@
 "use client"
 import React, { useState } from 'react';
 import Link from 'next/link';
+import AuthService from '@/authentication/auth.service';
 const Login: React.FC = () => {
+  const authService:AuthService = new AuthService(); 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -9,7 +11,14 @@ const Login: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Handle form submission here
+    const credentials = {username, email, password, rememberMe ,role:'customer'};
+    console.log(credentials);
+    try {
+      authService.signUp(credentials);
+      console.log("created successfuly");
+    } catch (error) {
+      console.log("error created successfuly");
+    }
     console.log('Form submitted:', { username, email, password, rememberMe });
   };
 
