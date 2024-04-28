@@ -13,8 +13,8 @@ export async function middleware(request: NextRequest) {
   };
 
   if (pathname === "" ||pathname ==="/") {
-    const analyticsUrl = `${request.nextUrl.origin}/analytics`;
-    return NextResponse.redirect(analyticsUrl);
+    const homeUrl = `${request.nextUrl.origin}/home`;
+    return NextResponse.redirect(homeUrl);
   }
 
   const isAuthenticated = (): boolean => {
@@ -28,7 +28,7 @@ export async function middleware(request: NextRequest) {
 
   const redirectToLogin = (redirectPath: string) => {
     const loginUrl = `${request.nextUrl.origin}${
-      ROUTES.login
+      ROUTES.home
     }?redirect=${encodeURIComponent(redirectPath)}`;
     return NextResponse.redirect(loginUrl);
   };
