@@ -1,5 +1,6 @@
 import { axiosInstance } from "@/core/utilities/header";
 import { Product } from "@/core/Types/product";
+import { Review } from "@/core/Types/review";
 import { paginatedData } from "@/core/Types/paginatedData";
 import { BaseService } from "@/core/utilities/baseService";
 import { environment } from "@/environment/environment";
@@ -92,6 +93,34 @@ class ProductService extends BaseService {
         return axiosInstance.post<void>(`${this.baseUrl}/restore`, { id })
             .catch((error: any) => {
                 console.error('Error restoring product:', error);
+                throw error;
+            });
+    }
+    Productreviews(id: string) {
+        return axiosInstance.get<{ product: Product, reviews: Review[] }[]>(`${this.baseUrl}/Productreviews`, { id })
+            .catch((error: any) => {
+                console.error('Error showing product:', error);
+                throw error;
+            });
+    }
+    allProductWithreviews() {
+        return axiosInstance.get<{ product: Product, reviews: Review[] }[]>(`${this.baseUrl}/allProductWithreviews`,)
+            .catch((error: any) => {
+                console.error('Error showing product:', error);
+                throw error;
+            });
+    }
+    recentReviews() {
+        return axiosInstance.get<{ product: Product; recentReview: Review | null }[]>(`${this.baseUrl}/recentReviews`,)
+            .catch((error: any) => {
+                console.error('Error showing product:', error);
+                throw error;
+            });
+    }
+    reviewsWithAvgRating() {
+        return axiosInstance.get<{ product: Product; recentReview: Review | null }[]>(`${this.baseUrl}/reviewsWithAvgRating`,)
+            .catch((error: any) => {
+                console.error('Error showing product:', error);
                 throw error;
             });
     }
