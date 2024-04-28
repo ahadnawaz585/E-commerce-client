@@ -13,6 +13,19 @@ class AuthService {
         `${this.baseUrl}/login`,
         credentials
       );
+      return response.data.message;
+    } catch (error) {
+      console.error("Login error:", error); // Add error handling
+      throw error;
+    }
+  }
+
+  async verifyOTP(credentials: User) {
+    try {
+      const response = await axios.post<any>(
+        `${this.baseUrl}/veriyOTP`,
+        credentials
+      );
       if (response.data.token) {
         this.setToken(response.data.token);
       }
@@ -25,10 +38,7 @@ class AuthService {
 
   async signUp(credentials: User): Promise<void> {
     try {
-      await axios.post<any>(
-        `${this.baseUrl}/signUp`,
-        credentials
-      );
+      await axios.post<any>(`${this.baseUrl}/signUp`, credentials);
       return;
     } catch (error) {
       console.error("Login error:", error); // Add error handling
