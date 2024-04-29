@@ -39,7 +39,7 @@ class ProductService extends BaseService {
     }
 
     getProductByCategory(category: string) {
-        return axiosInstance.post<Product>(`${this.baseUrl}/getByCategory`, { category })
+        return axiosInstance.post<Product[]>(`${this.baseUrl}/getByCategory`, { category })
             .then(response => response.data)
             .catch((error: any) => {
                 console.error('Error getting Product By Category:', error);

@@ -5,7 +5,7 @@ import { BaseService } from "@/core/utilities/baseService";
 import { environment } from "@/environment/environment";
 
 class ShoppingCartService extends BaseService {
-    private baseUrl = environment.apiUrl + '/ShoppingCart';
+    private baseUrl = environment.apiUrl + '/shoppingcart';
 
     getShoppingCart(page: number, pageSize: number): Promise<paginatedData> {
 

@@ -6,7 +6,7 @@ export interface User {
   email:string;
   rememberMe?:boolean;
   otp?: number
-  role?: Role;
+  role?: Role|string;
   createdAt?: Date;
   updatedAt?: Date;
   isDeleted?: Date;

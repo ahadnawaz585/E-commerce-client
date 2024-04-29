@@ -1,9 +1,11 @@
 "use client"
+"use client"
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import AuthService from '@/authentication/auth.service';
 import { User } from '@/core/Types/user';
 import { useRouter } from 'next/navigation';
+
 const Login: React.FC = () => {
   const authService: AuthService = new AuthService();
   const router = useRouter();
@@ -75,7 +77,7 @@ const Login: React.FC = () => {
         if (otpVerified) {
           setSuccessMessage('OTP verified successfully. Logging in...');
           setTimeout(() => {
-            router.push("/dashboard");
+            router.push("/home");
           }, 3000);
         } else {
           setError('Invalid OTP. Please try again.');
@@ -151,7 +153,7 @@ const Login: React.FC = () => {
               <label className="text-sm">Remember me</label>
             </div>
             <p className="mt-2 text-center">
-              Don't have an account?{' '}
+              Don&apos;t have an account?{' '}
               <Link href="/signUp" className="text-blue-500 hover:underline">
                 Sign Up
               </Link>

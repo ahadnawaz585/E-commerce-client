@@ -9,10 +9,9 @@ import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 
 const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Team', href: '#', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
+  { name: 'Home', href: '/home', current: true },
+  // { name: 'Dash Board', href: '/dashboard', current: false },
+  { name: 'Product', href: '/product', current: true },
 ]
 
 function classNames(...classes: string[]) {

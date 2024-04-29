@@ -11,7 +11,7 @@ export default function Home() {
   useEffect(() => {
     const isAuthenticated = authService.isAuthenticated();
     setAuthenticated(isAuthenticated);
-  }, []);
+  }, []); // Removed authService from dependency array
 
   return (
     <main className="bg-white">
@@ -32,7 +32,7 @@ export default function Home() {
               Welcome to Karyana Store - Your Ultimate Destination for Quality Groceries!
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              At Karyana Store, we believe in providing you with the finest selection of groceries, that cater to your every need. From fresh produce to pantry essentials, we've got you covered. Whether you're a seasoned chef looking for premium ingredients or a busy parent seeking convenience,clothing stuff or our diverse range of products ensures that there's something for everyone.
+              At Karyana Store, we believe in providing you with the finest selection of groceries, that cater to your every need. From fresh produce to pantry essentials, we&apos;ve got you covered. Whether you&apos;re a seasoned chef looking for premium ingredients or a busy parent seeking convenience, our diverse range of products ensures that there&apos;s something for everyone.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
