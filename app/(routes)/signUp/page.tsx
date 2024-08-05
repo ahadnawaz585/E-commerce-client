@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react'
 
-const SignUp = React.lazy(() => import('@/components/pages/signUp/signUp'))
+const SignUp = React.lazy(() => import('@/pages/signUp/signUp'))
 import Loader from '@/components/shared/loader/loader'
 const page = () => {
     return (

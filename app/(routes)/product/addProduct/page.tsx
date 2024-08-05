@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react'
-const ProductForm = React.lazy(() => import('@/components/pages/Product/add/addProduct'));
+const ProductForm = React.lazy(() => import('@/pages/Product/add/addProduct'));
 import Loader from '@/components/shared/loader/loader';
 const page = () => {
   return (

@@ -1,5 +1,5 @@
 import React,{Suspense} from 'react'
-const HomePage = React.lazy(()=>import('@/components/pages/Home/home'))
+const HomePage = React.lazy(()=>import('@/pages/Home/home'))
 const page = () => {
   return (
   <Suspense>
